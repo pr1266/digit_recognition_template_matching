@@ -19,7 +19,7 @@ for image = 3 : numel(data_set_dir)
     I = imread([data_set_path data_set_dir(image).name]);
     
     %% apply median filter to remove noise :
-    x = medfilt2(I, [5, 5]);
+    x = medfilt2(rgb2gray(I), [5, 5]);
 
     for num = 3 : numel(template_path_dir)
         x = x(:,:,1);
@@ -52,5 +52,17 @@ for image = 3 : numel(data_set_dir)
         end    
     end
     
+    
+        I = insertText(I, [200 980], sum, 'FontSize', 30, 'BoxColor', 'black', 'TextColor', 'white');
+        imwrite(I, [data_set_path data_set_dir(image).name]); 
+        %imshow(j);
+        goal_sum = str2double(data_set_dir(image).name(end - 5: end - 4));
+        %disp(data_set_dir(image).name(end - 5: end-4));
+        disp('name');
+        disp(data_set_dir(image).name);
+        disp('sum');
+        disp(sum);
+        if sum == goal_sum
+            acc = acc + 1;
+        end
 end
-
